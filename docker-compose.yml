@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  synapse:
+    image: matrixdotorg/synapse:latest
+    restart: unless-stopped
+    ports:
+      - "8008:8008"
+      - "8448:8448"
+    volumes:
+      - synapse_data:/data
+    environment:
+      - SYNAPSE_SERVER_NAME=sandyjoil.duckdns.org
+      - SYNAPSE_REPORT_STATS=no
+      - SYNAPSE_CONFIG_DIR=/data
+    command: register_new_matrix_user -c /data/homeserver.yaml -a -u admin -p admin
+
+volumes:
+  synapse_data:
